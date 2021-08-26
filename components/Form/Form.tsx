@@ -1,27 +1,36 @@
-import React, { useState } from "react";
-import { TextField, Button, Typography, Paper } from "@material-ui/core";
-import FileBase from 'react-file-base64'
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import { TextField, Button, Paper } from '@material-ui/core';
+import FileBase from 'react-file-base64';
+import { useDispatch } from 'react-redux';
 
-import useStyles from "./styles";
-import { createPost } from "../../actions/posts";
+import useStyles from './styles';
+import { createPost } from '../../actions/posts';
 
 const Form = () => {
   const [postData, setPostData] = useState({
-    creator: '', title: '', message: '', tags: [""], selectedFile: ''
-  })
+    creator: '',
+    title: '',
+    message: '',
+    tags: [''],
+    selectedFile: '',
+  });
   const classes = useStyles();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const clear = () => {
     // setCurrentId(0);
-    setPostData({ creator: '', title: '', message: '', tags: [''], selectedFile: '' });
+    setPostData({
+      creator: '',
+      title: '',
+      message: '',
+      tags: [''],
+      selectedFile: '',
+    });
   };
 
-  
   const handleSubmit = (e: any) => {
-    e.preventDefault()
-    dispatch(createPost(postData))
+    e.preventDefault();
+    dispatch(createPost(postData));
   };
 
   return (
@@ -41,9 +50,7 @@ const Form = () => {
           label="Creator"
           fullWidth
           value={postData.creator}
-          onChange={(e) =>
-            setPostData({ ...postData, creator: e.target.value })
-          }
+          onChange={(e) => setPostData({ ...postData, creator: e.target.value })}
         />
         <TextField
           name="title"
@@ -61,9 +68,7 @@ const Form = () => {
           multiline
           rows={4}
           value={postData.message}
-          onChange={(e) =>
-            setPostData({ ...postData, message: e.target.value })
-          }
+          onChange={(e) => setPostData({ ...postData, message: e.target.value })}
         />
         <TextField
           name="tags"
@@ -71,17 +76,13 @@ const Form = () => {
           label="Tags (coma separated)"
           fullWidth
           value={postData.tags}
-          onChange={(e) =>
-            setPostData({ ...postData, tags: e.target.value.split(",") })
-          }
+          onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}
         />
         <div className={classes.fileInput}>
           <FileBase
             type="file"
             multiple={false}
-            onDone={({ base64 }) =>
-              setPostData({ ...postData, selectedFile: base64 })
-            }
+            onDone={({ base64 }: any) => setPostData({ ...postData, selectedFile: base64 })}
           />
         </div>
         <Button
